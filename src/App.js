@@ -1,9 +1,9 @@
-import React from 'react';
-import axios from 'axios';
-import CountryCard from './components/CountryCard';
-import CountryList from './components/CountryList';
+import React from "react";
+import axios from "axios";
+import CountryCard from "./components/CountryCard";
+import CountryList from "./components/CountryList";
 
-import './App.css';
+import "./App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -40,22 +40,26 @@ class App extends React.Component {
   render() {
     return (
       <div className="covid-tracker">
-        <h1 className="section-title">Country Card</h1>
-        <p className="section-instructions">
-          Random country has been displayed as an example, view instructions
-          below to display specific country of your choice.
-        </p>
-        <CountryCard currentCountry={this.state.activeCountry} />
+        <div className="country-card-wrapper">
+          <h1 className="section-title">Country Card</h1>
+          <p className="section-instructions">
+            Random country has been displayed as an example, view instructions
+            below to display specific country of your choice.
+          </p>
+          <CountryCard currentCountry={this.state.activeCountry} />
+        </div>
 
-        <h1 className="section-title">Country List</h1>
-        <p className="section-instructions">
-          Click on the specific country name to view all the details about the
-          country.
-        </p>
-        <CountryList
-          countriesData={this.state.countriesData}
-          whenClicked={this.setActiveCountry}
-        />
+        <div className="country-list-wrapper">
+          <h1 className="section-title">Country List</h1>
+          <p className="section-instructions">
+            Click on the specific country name to view all the details about the
+            country.
+          </p>
+          <CountryList
+            countriesData={this.state.countriesData}
+            whenClicked={this.setActiveCountry}
+          />
+        </div>
       </div>
     );
   }
