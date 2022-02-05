@@ -2,48 +2,47 @@ import React from "react";
 import ReactLoading from "react-loading";
 
 class CountryCard extends React.Component {
+  formatNumber(number) {
+    return number.toLocaleString("en-US", { maximumFractionDigits: 2 });
+  }
+
+  formatDate(date) {
+    return new Date(date).toLocaleString("en-GB");
+  }
+
   render() {
     if (
       this.props.currentCountry == null ||
       this.props.currentCountry.length === 0
     ) {
       return (
-        <ReactLoading
-          type="bubbles"
-          color="#ffffff"
-          height={64}
-          width={64}
-        />
+        <ReactLoading type="bubbles" color="#ffffff" height={64} width={64} />
       );
     } else {
-      let dateTime = new Date(this.props.currentCountry.updated);
-      let displayDateTime = dateTime.toLocaleString("en-GB");
+      const { currentCountry } = this.props;
+
       return (
         <div id="country-card">
           <div className="top-wrap">
             <div className="country-flag">
               <img
-                src={this.props.currentCountry.countryInfo.flag}
-                alt={this.props.currentCountry.country}
+                src={currentCountry.countryInfo.flag}
+                alt={currentCountry.country}
               />
             </div>
             <div className="top-details-wrap">
-              <div className="country">
-                {this.props.currentCountry.country}{" "}
-              </div>
+              <div className="country">{currentCountry.country}</div>
               <div className="continent">
                 <span className="main-title">Continent</span>
-                {this.props.currentCountry.continent}{" "}
+                {currentCountry.continent}
               </div>
               <div className="population">
-                <span className="main-title">population</span>
-                {this.props.currentCountry.population
-                  .toString()
-                  .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")}
+                <span className="main-title">Population</span>
+                {this.formatNumber(currentCountry.population)}
               </div>
               <div className="last-updated">
-                <span className="main-title">updated at</span>
-                {displayDateTime}
+                <span className="main-title">Updated at</span>
+                {this.formatDate(currentCountry.updated)}
               </div>
             </div>
           </div>
@@ -51,7 +50,7 @@ class CountryCard extends React.Component {
             <div className="info-box active">
               <div className="info-box-title">Total Active</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.active}
+                {this.formatNumber(currentCountry.active)}
               </div>
             </div>
             <div className="info-box active per_million">
@@ -63,31 +62,31 @@ class CountryCard extends React.Component {
             <div className="info-box cases">
               <div className="info-box-title">Total Cases</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.cases}
+                {this.formatNumber(currentCountry.cases)}
               </div>
             </div>
             <div className="info-box cases per_million">
               <div className="info-box-title">Cases per million</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.casesPerOneMillion}
+                {this.formatNumber(currentCountry.casesPerOneMillion)}
               </div>
             </div>
             <div className="info-box critical">
               <div className="info-box-title">Critical Condition</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.critical}
+                {this.formatNumber(currentCountry.critical)}
               </div>
             </div>
             <div className="info-box critical per_million">
               <div className="info-box-title">Critical per million</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.criticalPerOneMillion}
+                {currentCountry.criticalPerOneMillion}
               </div>
             </div>
             <div className="info-box deaths">
               <div className="info-box-title">Total Deaths</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.deaths}
+                {this.formatNumber(currentCountry.deaths)}
               </div>
             </div>
             <div className="info-box deaths per_million">
@@ -99,7 +98,7 @@ class CountryCard extends React.Component {
             <div className="info-box recovered">
               <div className="info-box-title">Total Recovered</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.recovered}
+                {this.formatNumber(currentCountry.recovered)}
               </div>
             </div>
             <div className="info-box recovered per_million">
@@ -111,7 +110,7 @@ class CountryCard extends React.Component {
             <div className="info-box tests">
               <div className="info-box-title">Total Tests</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.tests}
+                {this.formatNumber(currentCountry.tests)}
               </div>
             </div>
             <div className="info-box tests per_million">
@@ -123,19 +122,19 @@ class CountryCard extends React.Component {
             <div className="info-box cases_today">
               <div className="info-box-title">Cases today</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.todayCases}
+                {this.formatNumber(currentCountry.todayCases)}
               </div>
             </div>
             <div className="info-box deaths_today">
               <div className="info-box-title">Deaths today</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.todayDeaths}
+                {this.formatNumber(currentCountry.todayDeaths)}
               </div>
             </div>
             <div className="info-box recovered_today">
               <div className="info-box-title">Recovered today</div>
               <div className="info-box-stat">
-                {this.props.currentCountry.todayRecovered}
+                {this.formatNumber(currentCountry.todayRecovered)}
               </div>
             </div>
           </div>
