@@ -8,12 +8,7 @@ class CountryList extends React.Component {
       this.props.countriesData.length === 0
     ) {
       return (
-        <ReactLoading
-          type="bubbles"
-          color="#ffffff"
-          height={64}
-          width={64}
-        />
+        <ReactLoading type="bubbles" color="#ffffff" height={64} width={64} />
       );
     } else {
       return (
@@ -26,33 +21,31 @@ class CountryList extends React.Component {
               <th>Deaths</th>
               <th>Deaths Today</th>
               <th>Recovered</th>
-              <th>Recovered Today</th>
               <th>Active</th>
               <th>Critical</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.countriesData.map((elem) => (
-              <tr key={elem.country} className="country_row">
+            {this.props.countriesData.map((country) => (
+              <tr key={country.country} className="country_row">
                 <th
                   className="country-display"
-                  onClick={() => this.props.whenClicked(elem)}
+                  onClick={() => this.props.whenClicked(country)}
                 >
                   <img
-                    src={elem.countryInfo.flag}
-                    alt={elem.country}
+                    src={country.countryInfo.flag}
+                    alt={country.country}
                     className="country-img"
                   ></img>
-                  {elem.country}
+                  {country.country}
                 </th>
-                <th>{elem.cases}</th>
-                <th>{elem.todayCases}</th>
-                <th>{elem.deaths}</th>
-                <th>{elem.todayDeaths}</th>
-                <th>{elem.recovered}</th>
-                <th>{elem.todayRecovered}</th>
-                <th>{elem.active}</th>
-                <th>{elem.critical}</th>
+                <th>{country.cases}</th>
+                <th>{country.todayCases}</th>
+                <th>{country.deaths}</th>
+                <th>{country.todayDeaths}</th>
+                <th>{country.recovered}</th>
+                <th>{country.active}</th>
+                <th>{country.critical}</th>
               </tr>
             ))}
           </tbody>
