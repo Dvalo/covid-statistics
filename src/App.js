@@ -1,68 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import CountryCard from "./components/CountryCard";
 import CountryList from "./components/CountryList";
 
-import "./App.css";
+import "./styles/main.scss";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      countriesData: [],
-      activeCountry: [],
-    };
-    this.setActiveCountry = this.setActiveCountry.bind(this);
-  }
-  componentDidMount() {
+const App = () => {
+  const [countries, setCountries] = useState([]);
+  const [activeCountry, setActiveCountry] = useState(null);
+  const [isRandomized, setIsRandomized] = useState(true);
+
+  useEffect(() => {
     axios
       .get("https://disease.sh/v3/covid-19/countries")
       .then((response) => {
-        this.setState({ countriesData: response.data });
-        this.getRandomCountry();
+        const filteredData = response.data.filter((country) => {
+          return country.countryInfo.iso3 !== null;
+        });
+        setCountries(filteredData);
+        getRandomCountry(filteredData);
       })
       .catch((error) => console.log(error));
-  }
+  }, []);
 
-  getRandomCountry() {
-    let generateRandomInt = Math.floor(
-      Math.random() * this.state.countriesData.length
-    );
-    let getRandomCountry = this.state.countriesData[generateRandomInt];
-    this.setState({ activeCountry: getRandomCountry });
-  }
+  const getRandomCountry = (countries) => {
+    const generateRandomInt = Math.floor(Math.random() * countries.length);
+    const randomizedCountry = countries[generateRandomInt];
+    setActiveCountry(randomizedCountry);
+  };
 
-  setActiveCountry(country) {
-    this.setState({ activeCountry: country });
+  const handleCountryClick = (country) => {
+    if (isRandomized) {
+      setIsRandomized(false);
+    }
+    setActiveCountry(country);
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }
+  };
 
-  render() {
-    return (
-      <div className="covid-tracker">
-        <div className="country-card-wrapper">
-          <h1 className="section-title">Country Card</h1>
-          <p className="section-instructions">
-            Random country has been displayed as an example, view instructions
-            below to display specific country of your choice.
-          </p>
-          <CountryCard currentCountry={this.state.activeCountry} />
-        </div>
-
-        <div className="country-list-wrapper">
-          <h1 className="section-title">Country List</h1>
-          <p className="section-instructions">
-            Click on the specific country name to view all the details about the
-            country.
-          </p>
-          <CountryList
-            countriesData={this.state.countriesData}
-            whenClicked={this.setActiveCountry}
-          />
+  return (
+    <div className="covid-tracker">
+      <div className="covid-tracker__section covid-tracker__section--display">
+        <div className="covid-tracker__section-inner">
+          {isRandomized && (
+            <div className="covid-tracker__section-intro">
+              <p className="covid-tracker__section-title">Country Card</p>
+              <p className="covid-tracker__section-desc">
+                Random country has been displayed as an example, view
+                instructions below to display specific country of your choice.
+              </p>
+            </div>
+          )}
+          {activeCountry ? (
+            <CountryCard country={activeCountry} />
+          ) : (
+            <p className="loading">Loading Data...</p>
+          )}
         </div>
       </div>
-    );
-  }
-}
+
+      <div className="covid-tracker__section covid-tracker__section--listing">
+        <div className="covid-tracker__section-inner">
+          <div className="covid-tracker__section-intro">
+            <p className="covid-tracker__section-title">Country Listing</p>
+            <p className="covid-tracker__section-desc">
+              Click on the specific country name to view all the details about
+              the country.
+            </p>
+          </div>
+          {countries.length ? (
+            <CountryList
+              countries={countries}
+              handleCountryClick={handleCountryClick}
+            />
+          ) : (
+            <p className="loading">Loading Data...</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default App;

@@ -1,0 +1,21 @@
+// Colors
+$color-primary: #1a202d;
+$color-secondary: #101925;
+$color-primary-light: #182434;
+$color-title: #a4f4ff;
+$color-white: #fff;
+$color-text: #dbdbdc;
+
+// Fonts
+$font-montserrat: "Montserrat", sans-serif;
+$font-barlow: "Barlow Condensed", sans-serif;
+$font-exo2: "Exo 2", sans-serif;
+$font-tilt-prism: "Tilt Prism", cursive;
+
+// Breakpoints
+$breakpoints: (
+  "sm": 576px,
+  "md": 768px,
+  "lg": 1024px,
+  "xl": 1200px,
+);

@@ -1,0 +1,38 @@
+body {
+  font-family: $font-montserrat;
+  background: $color-primary;
+  color: $color-text;
+}
+
+.loading {
+  font-size: 36px;
+  font-family: $font-exo2;
+  color: $color-title;
+}
+
+.covid-tracker__section-inner {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 36px;
+  padding-bottom: 36px;
+}
+
+.covid-tracker__section-title {
+  font-size: 32px;
+  font-weight: 500;
+  color: $color-title;
+  margin: 0 0 6px;
+}
+
+.covid-tracker__section-desc {
+  opacity: 0.6;
+  font-size: 14px;
+  margin: 0;
+}
+
+// Country card display section
+.covid-tracker__section--display {
+  background: $color-secondary;
+}

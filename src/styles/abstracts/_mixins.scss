@@ -1,0 +1,26 @@
+// Breakpoints
+@mixin bp-up($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint does not exist: `#{$breakpoint}`";
+  }
+}
+
+// Container mixin
+@mixin container() {
+  padding-right: 24px;
+  padding-left: 24px;
+
+  @include bp-up(md) {
+    padding-right: 64px;
+    padding-left: 64px;
+  }
+
+  @include bp-up(lg) {
+    padding-right: 100px;
+    padding-left: 100px;
+  }
+}
